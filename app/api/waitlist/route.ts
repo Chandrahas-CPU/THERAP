@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     // Insert into Supabase
     const { data, error } = await supabase
-      .from("waitlist")
+      .from("waitlist_entries")
       .insert([
         {
           name: name || null,
