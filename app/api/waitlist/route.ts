@@ -37,43 +37,43 @@ function getSupabaseClient() {
 export async function POST(request: NextRequest) {
   try {
     // Initialize Supabase client
-    let supabase
+    let supabase;
     try {
-      supabase = getSupabaseClient()
+      supabase = getSupabaseClient();
     } catch (error) {
-      console.error("Supabase configuration error:", error)
+      console.error("Supabase configuration error:", error);
       return NextResponse.json(
         {
           error: "Database configuration error. Please check environment variables.",
         },
         { status: 500 },
-      )
+      );
     }
 
     // Parse request body
-    let body
+    let body;
     try {
-      body = await request.json()
+      body = await request.json();
     } catch (error) {
-      return NextResponse.json({ error: "Invalid JSON in request body" }, { status: 400 })
+      return NextResponse.json({ error: "Invalid JSON in request body" }, { status: 400 });
     }
 
-    const { name, email } = body
+    const { name, email } = body;
 
     // Validate required fields
     if (!email || typeof email !== "string") {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 })
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
+      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
 
     // Insert into Supabase
     const { data, error } = await supabase
-      .from("waitlist_entries")
+      .from("waitlist_entries") // ENSURE THIS IS CORRECT
       .insert([
         {
           name: name || null,
@@ -81,24 +81,29 @@ export async function POST(request: NextRequest) {
         },
       ])
       .select()
-      .single()
+      .single();
 
     if (error) {
-      console.error("Supabase error:", error)
+      console.error("Supabase error:", { // MODIFIED ERROR LOGGING
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      });
 
       // Handle unique constraint violation (duplicate email)
       if (error.code === "23505") {
-        return NextResponse.json({ error: "Email already registered" }, { status: 409 })
+        return NextResponse.json({ error: "Email already registered" }, { status: 409 });
       }
 
-      // Handle table doesn't exist error
+      // Handle table doesn't exist error (though unlikely now)
       if (error.code === "42P01") {
         return NextResponse.json(
           {
             error: "Database table not found. Please contact support.",
           },
           { status: 500 },
-        )
+        );
       }
 
       return NextResponse.json(
@@ -106,10 +111,10 @@ export async function POST(request: NextRequest) {
           error: "Failed to save to database. Please try again.",
         },
         { status: 500 },
-      )
+      );
     }
 
-    console.log("New waitlist entry:", data)
+    console.log("New waitlist entry:", data);
 
     return NextResponse.json(
       {
@@ -117,15 +122,15 @@ export async function POST(request: NextRequest) {
         id: data.id,
       },
       { status: 201 },
-    )
+    );
   } catch (error) {
-    console.error("Unexpected error in waitlist API:", error)
+    console.error("Unexpected error in waitlist API:", error);
     return NextResponse.json(
       {
         error: "Internal server error. Please try again later.",
       },
       { status: 500 },
-    )
+    );
   }
 }
 
