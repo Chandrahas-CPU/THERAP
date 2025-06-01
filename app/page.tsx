@@ -294,7 +294,7 @@ export default function LandingPage() {
                     <div className="relative">
                       <div className="absolute -inset-4 rounded-3xl bg-purple-50 -z-10"></div>
                       <img
-                        src="/placeholder.svg?height=320&width=400"
+                        src="/images/chandrahas.jpg"
                         alt="Bale Chandrahas, Founder of THERAP"
                         className="rounded-2xl shadow-lg w-full h-80 object-cover"
                       />
@@ -402,7 +402,7 @@ export default function LandingPage() {
                     <div className="relative mb-6">
                       <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 opacity-20 blur-lg"></div>
                       <img
-                        src="/placeholder.svg?height=128&width=128"
+                        src="/images/chandrahas.jpg"
                         alt="Bale Chandrahas"
                         className="relative w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
                       />
@@ -420,7 +420,7 @@ export default function LandingPage() {
                     <div className="relative mb-6">
                       <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 opacity-20 blur-lg"></div>
                       <img
-                        src="/placeholder.svg?height=128&width=128"
+                        src="/images/hitesh.jpg"
                         alt="Hitesh"
                         className="relative w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
                       />
@@ -1188,3 +1188,4 @@ export default function LandingPage() {
     </div>
   )
 }
+
