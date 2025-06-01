@@ -420,7 +420,7 @@ export default function LandingPage() {
                     <div className="relative mb-6">
                       <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 opacity-20 blur-lg"></div>
                       <img
-                        src="/images/hitesh.jpg"
+                        src="/images/hitesh (1).jpg"
                         alt="Hitesh"
                         className="relative w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
                       />
