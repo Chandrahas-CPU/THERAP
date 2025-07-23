@@ -1,6 +1,8 @@
 import type React from "react"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -11,7 +13,10 @@ export default function LandingLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Analytics />
+      </body>
     </html>
   )
 }
